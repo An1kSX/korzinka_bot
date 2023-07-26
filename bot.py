@@ -163,6 +163,10 @@ def callback_handler(_, callback_query):
 			chat_id = callback_query.message.chat.id,
 			text = languages[language]['lang_changed']
 			)
+		bot.delete_messages(
+			chat_id = callback_query.message.chat.id,
+			message_ids = callback_query.message.id
+			)
 		start(_, callback_query.message)
 		return
 
