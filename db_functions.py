@@ -92,3 +92,21 @@ def state_get(user_id):
 		print(f'Error: {e}')
 
 ###############################################################
+
+
+
+################# Получение кода маркета ######################
+
+def code_get(sap_id):
+	try:
+		sql.execute('SELECT code FROM stores WHERE sap_id = ?', (sap_id, ))
+		code = sql.fetchone()
+		if code is None:
+			return code
+
+		return code[0]
+
+	except Exception as e:
+		print(F'Error: {e}')
+
+###############################################################

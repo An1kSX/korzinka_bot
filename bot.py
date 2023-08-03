@@ -128,11 +128,19 @@ def shop_info_sender(_, message):
 						return
 
 			shop = shop[0]
-			bot.send_photo(
-				chat_id = message.chat.id,
-				photo = f"http:{shop['picture']}", 
-				caption = f"<b>{shop['name']}</b>\n\n<b>SAP ID: </b>{shop['id']}\n<b>{languages[language]['legal_address']}</b>{shop['address']}\n<b>Google Maps: </b><a href = 'https://www.google.com/maps/dir//{shop['location']['lat']},{shop['location']['lon']}/@{shop['location']['lat']},{shop['location']['lon']},18z?entry=ttu'>{shop['name']}</a>"
-				)
+			try:
+				bot.send_photo(
+					chat_id = message.chat.id,
+					photo = f"http:{shop['picture']}", 
+					caption = f"<b>{shop['name']}</b>\n\n<b>SAP ID: </b>{shop['id']}\n<b>Code: </b>{db.code_get(shop['id'])}\n<b>{languages[language]['legal_address']}</b>{shop['address']}\n<b>Google Maps: </b><a href = 'https://www.google.com/maps/dir//{shop['location']['lat']},{shop['location']['lon']}/@{shop['location']['lat']},{shop['location']['lon']},18z?entry=ttu'>{shop['name']}</a>"
+					)
+			except:
+				bot.send_message(
+					chat_id = message.chat.id,
+					text = f"<b>{shop['name']}</b>\n\n<b>SAP ID: </b>{shop['id']}\n<b>Code: </b>{db.code_get(shop['id'])}\n<b>{languages[language]['legal_address']}</b>{shop['address']}\n<b>Google Maps: </b><a href = 'https://www.google.com/maps/dir//{shop['location']['lat']},{shop['location']['lon']}/@{shop['location']['lat']},{shop['location']['lon']},18z?entry=ttu'>{shop['name']}</a>",
+					disable_web_page_preview = True
+					)
+
 			bot.send_location(
 				chat_id = message.chat.id, 
 				latitude = float(shop['location']['lat']),
