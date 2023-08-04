@@ -84,7 +84,7 @@ def start(_, message):
 	bot.send_message(
 		chat_id = message.chat.id,
 		text  = languages[language]['enter_store_name'],
-		reply_markup = ReplyKeyboardMarkup([[KeyboardButton(languages[language]['lang_choose'])]], resize_keyboard = True)
+		reply_markup = ReplyKeyboardMarkup([[KeyboardButton(languages[language]['lang_change'])]], resize_keyboard = True)
 		)
 
 ###############################################################
@@ -100,7 +100,7 @@ def shop_info_sender(_, message):
 	state = db.state_get(message.chat.id)
 
 	if state == 'menu':
-		if message.text == languages[language]['lang_choose']:
+		if message.text == languages[language]['lang_change']:
 			db.lang_change(message.chat.id, None)
 			start(_, message)
 			return
